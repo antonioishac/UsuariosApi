@@ -6,21 +6,28 @@ namespace UsuariosApi.Controllers;
 
 [ApiController]
 [Route("[Controller]")]
-public class UsuarioController : ControllerBase
+public class UserController : ControllerBase
 {
 
-    private UserRegisterService _userRegisterService;
+    private UserService _userService;
 
-    public UsuarioController(UserRegisterService userRegisterService)
+    public UserController(UserService userService)
     {
-        _userRegisterService = userRegisterService;
+        _userService = userService;
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     public async Task<IActionResult> CreateUser(CreateUserDto dto)
     {
-        await _userRegisterService.UserRegister(dto);
+        await _userService.UserRegister(dto);
         return Ok("Usuário cadastrado!");
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> LoginUser(LoginDto dto)
+    {
+        await _userService.LoginUser(dto);
+        return Ok("Usuário autenticado!");
     }
     
 }

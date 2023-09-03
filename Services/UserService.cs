@@ -6,16 +6,19 @@ using UsuariosApi.Models;
 namespace UsuariosApi.Services
 {
 
-    public class UserRegisterService
+    public class UserService
     {
 
         private IMapper _mapper;
         private UserManager<User> _userManager;
 
-        public UserRegisterService(IMapper mapper, UserManager<User> userManager)
+        private SignInManager<User> _signInManager;
+
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task UserRegister(CreateUserDto dto)
@@ -27,6 +30,16 @@ namespace UsuariosApi.Services
             if (!result.Succeeded)
             {
                 throw new ApplicationException("Falha ao cadastrar o usuário!");
+            }
+        }
+
+        public async Task LoginUser(LoginDto dto)
+        {
+            var result = await _signInManager.PasswordSignInAsync(dto.Username, dto.Password, false, false);
+
+            if (!result.Succeeded)
+            {
+                throw new ApplicationException("Usuário não encontrado!");
             }
         }
     }

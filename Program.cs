@@ -24,7 +24,7 @@ builder.Services
     .AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddScoped<UserRegisterService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
