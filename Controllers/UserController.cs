@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using UsuariosApi.Data.Dtos;
 using UsuariosApi.Services;
@@ -26,8 +27,8 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> LoginUser(LoginDto dto)
     {
-        await _userService.LoginUser(dto);
-        return Ok("Usuário autenticado!");
+        var token = await _userService.LoginUser(dto);
+        return Ok(token);
     }
     
 }

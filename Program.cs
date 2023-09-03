@@ -25,6 +25,7 @@ builder.Services
     .AddEntityFrameworkStores<UserDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
